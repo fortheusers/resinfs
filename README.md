@@ -7,8 +7,8 @@ This allows files to be stored in a hierarchical manner inside the binary direct
 
 ### Usage
 #### Library usage
-Include library's header: `#include <romfs-wiiu.h>`
-Call `ramfsInit()` at the start of your app and `ramfsInit()` before exiting
+- Include library's header: `#include <romfs-wiiu.h>` (file is named this way even on other platforms)
+- Call `ramfsInit()` at the start of your app and `ramfsInit()` before exiting
 
 #### Makefile
 To generate the resinfs, define a RAMFS_DIR variable in you makefile containing the path of your desired folder:
