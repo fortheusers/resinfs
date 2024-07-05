@@ -2,9 +2,9 @@
 .SUFFIXES:
 #-------------------------------------------------------------------------------
 
-ifeq ($(strip $(DEVKITPRO)),)
-$(error "Please set DEVKITPRO in your environment. export DEVKITPRO=<path to>/devkitpro")
-endif
+DEVKITPRO ?= /opt/devkitpro
+export DEVKITPRO
+
 TOPDIR ?= $(CURDIR)
 include $(DEVKITPRO)/wut/share/wut_rules
 
