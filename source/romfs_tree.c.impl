@@ -7,6 +7,18 @@
 #ifndef _ROMFS_TREE_C
 #define _ROMFS_TREE_C
 
+char* my_strdup(const char *s1)
+{
+  char *str;
+  size_t size = strlen(s1) + 1;
+
+  str = malloc(size);
+  if (str) {
+    memcpy(str, s1, size);
+  }
+  return str;
+}
+
 typedef enum
 {
 	NODE_DIR,
@@ -51,7 +63,7 @@ static void node_createfilepath (const char *cpath, time_t mtime, int32_t isdir,
 	node_t *n = &fs_root;
 	
 	/* duplicate path to do the parsing */
-	char *path = strdup(cpath), *path_s;
+	char *path = my_strdup(cpath), *path_s;
 
 	/* the currently parsed directory and the next */
 	char *cur, *next = strtok_r(path, "/", &path_s);
@@ -90,7 +102,7 @@ static void node_createfilepath (const char *cpath, time_t mtime, int32_t isdir,
 
 		/* create the current path node */
 		c = malloc(sizeof(node_t));
-		c->name = strdup(cur);
+		c->name = my_strdup(cur);
 		c->inode = ++n_nodes;
 		c->mtime = mtime;
 
@@ -181,7 +193,7 @@ static node_t *node_get (const char *cpath)
 	node_t *n = (cpath[0] == '/') ? &fs_root : fs_cwd;
 
 	/* duplicate path to do the parsing */
-	char *path = strdup(cpath), *path_s;
+	char *path = my_strdup(cpath), *path_s;
 
 	/* split the path string */
 	for (char *cur = strtok_r(path, "/", &path_s); cur; cur = strtok_r(NULL, "/", &path_s))
